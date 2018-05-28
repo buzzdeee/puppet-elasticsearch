@@ -3,7 +3,7 @@
 # This file is managed via PUPPET
 
 daemon="/usr/local/elasticsearch/bin/elasticsearch"
-daemon_flags="-d -<%= opt_flag %>default.path.conf=/etc/elasticsearch/<%= @resource[:instance] %> -p <%= @resource[:pid_dir] %>/elasticsearch-<%= @resource[:instance] %>.pid"
+daemon_flags="-d -p <%= @resource[:pid_dir] %>/elasticsearch-<%= @resource[:instance] %>.pid"
 daemon_user="_elasticsearch"
 
 . /etc/rc.d/rc.subr
@@ -15,7 +15,7 @@ rc_reload=NO
 rc_start() {
 	${rcexec} \
 		"ES_INCLUDE=\"/etc/elasticsearch/elasticsearch.in.sh\" \
-		"ES_JVM_OPTIONS=\"/etc/elasticsearch/<%= @resource[:instance] %>/jvm.options\"" \
+		"ES_PATH_CONF=\"/etc/elasticsearch/<%= @resource[:instance] %>\"" \
 		JAVA_HOME=\"$(/usr/local/bin/javaPathHelper -h elasticsearch)\" \
 		${daemon} ${daemon_flags}"
 }
