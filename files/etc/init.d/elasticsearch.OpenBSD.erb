@@ -8,7 +8,7 @@ daemon_user="_elasticsearch"
 
 . /etc/rc.d/rc.subr
 
-pexp="$(/usr/local/bin/javaPathHelper -c elasticsearch) .*org.elasticsearch.bootstrap.Elasticsearch.*"
+pexp="$(/usr/local/bin/javaPathHelper -c elasticsearch) .*org.elasticsearch.bootstrap.Elasticsearch.*-p <%= @resource[:pid_dir] %>/elasticsearch-<%= @resource[:instance] %>.pid"
 
 rc_reload=NO
 
